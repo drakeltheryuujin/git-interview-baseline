@@ -16,7 +16,7 @@
 
 ## Overview
 
-An important part of collaboring ih git is to keep discrete, individual lines of work separate from each other. "Commit early, commit often", or some variation of this phrase, is commonly used by developers. 
+An important part of collaborating in git is to keep discrete, individual lines of work separate from each other. "Commit early, commit often", or some variation of this phrase, is commonly used by developers. 
 **Why is that?**--The idea behind small, frequent commits is to allow developers to track their work in easy-to-define chunks. For instance, if you make various unlreated changes and commit all of the code at once (eg: you add several new files, change some stylesheets, install a couple new packages/gems, update some config files, and delete some views), you, let alone other developers, may not have any idea how much those changes impact the overall application, and would make tracking down and implementing fixes very difficult, in the occasion that something you did broke the app. With that being said, consider the following scenario:
 
 > You begin working on a big feature. You make a few "Work in Progress" commits that don't get the feature fully-functional. Your git log might look like:
