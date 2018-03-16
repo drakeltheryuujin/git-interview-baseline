@@ -42,47 +42,63 @@ It wouldn't be wise to push all these commits. What if we were able to isolate o
 
 ## Making a branch with `git branch`
 
-Let's quickly make a repository that we can use as a sandbox to experiment with the collaborative features of git. You don't have to follow along, you'll be able to understand the concepts from the reading but if you'd like, you can copy and paste these commands locally.
+First, let's walk through the process of making a repository as a sandbox to experiment with the collaborative features of git. You don't have to follow along--you'll be able to understand the concepts from the reading, but for practice, you can copy and paste the following commands into your computer's terminal window.
 
-From our home directory we're going to make a new directory for our mission-critical-application.
+From our home directory (visible when you first open up the terminal), we'll make a new directory for our mission-critical-application.
 
+1.
 ```
 ~ $ mkdir mission-critical-application
+```
+This will make a new directory in your current folder
+2.
+```
 ~ $ cd mission-critical-application
+```
+This command will change directory, placing you inside of the newly created folder `mission-critical-application`
+3.
+```
 mission-critical-application $ git init
+```
+This initializes a git repository so that you can push and pull changes.
+4.
+```
 mission-critical-application $ touch application.rb
+```
+**touch** creates a new file. The new file is `application.rb` where we create our application.
+5.
+```
 mission-critical-application $ git add application.rb
+```
+`git add` will **stage** your working changes so that they can will be included when you run the **commit** command.
+6.
+```
 mission-critical-application $ git commit -m "First working version of application.rb"
 ```
+This creates a commit for your newly created `application.rb` file, with a clear and concise commit message that logs this in the history.
 
-1. We made a new directory with `mkdir mission-critical-application`.
-2. We moved into that directory with `cd mission-critical-application`.
-3. We turned that directory into a git repository with `git init`.
-4. We created our application `touch application.rb`.
-5. We programmed an entire working first version in `application.rb` (*not reflected in the CLI commands above, but we did, and it was awesome, great job*).
-6. We added our `application.rb` to git with `git add application.rb`.
-7. We committed the first working version of our application with `git commit -m "First working version of application.rb"`.
-8. You deploy your application to production and people start using it (*also not reflected in the CLI commands above, but we did, and it too was awesome, great job*).
+8. Your application is deployed to production and people start using it (_not reflected in the command lines above, but let's assume you did a great job!_).
 
-With our application online and customers rolling in, we notice a bug and quickly add a fix in the form of a file, `first-bug-fix.rb` (*this is just an example*).
+Now that our application is online and customers are rolling in, we notice a bug and quickly add a fix in the form of a file, for the sake of the example, is called `first-bug-fix.rb`.
 
+We create, stage, and commit the file using the commands below:
 ```
 mission-critical-application $ touch first-bug-fix.rb
 mission-critical-application $ git add first-bug-fix.rb
 mission-critical-application $ git commit -m "First bug fix"
 ```
 
-Right now our git log could be visualized as a timeline composed of two commits.
+Right now, our git log could be visualized as a timeline composed of two commits:
 
 ![First Two Commits](https://dl.dropboxusercontent.com/s/ikorf1qvvp4tay0/2015-11-02%20at%2011.15%20AM.png)
 
 ### About `master` branch.
 
-Notice that these commits are occurring in a linear sequence of events, almost like a timeline? We call this timeline a branch. Whenever you are working on commits in git, you are adding them on a timeline of code called a branch. The branch you are on by default at the start of any repository, your main timeline, the main branch is called master.
+Notice that these commits are occurring in a linear sequence of events, almost like a timeline? We call this timeline a **branch** (sort of like a tree)! Whenever you are working on commits in git, you are adding them on a timeline of code called a branch. The branch you are on by default at the start of any repository, your main timeline, the main branch is called master.
 
 ![Master Branch](https://dl.dropboxusercontent.com/s/v75as2cf6xr8n8a/2015-11-02%20at%2011.17%20AM.png)
 
-`git status` will always tell you what branch you are on.
+If you're not sure which branch you're currently working on, the command `git status` will tell you.
 
 ```
 mission-critical-application $ git status
@@ -90,7 +106,7 @@ On branch master
 nothing to commit, working directory clean
 ```
 
-The `master` git branch is our default branch. One of the responsible ways to use git is to make sure that the `master` branch is always clean with working code so that if we ever need to add a bug fix, we can do it and deploy a new version of the application immediately. We don't put broken code in master so that we can always deploy master.
+The git branch called `master` is our default branch. One of the responsible ways to use git, is to make sure that the `master` branch is always "clean" with working code. So, if we ever need to add a bug fix, we can do so and deploy a new version of the application immediately. If we keep broken or incomplete code out of master, we can always deploy master safely without negatively impacting the rest of the application.
 
 ### Starting a new feature with `git branch new-feature`
 
