@@ -25,23 +25,23 @@ An important part of collaborating in git is to keep discrete, individual lines 
 > 62d840 Almost done with new-feature (aviflombaum, 1 day ago)
 > fbee832 Started new-feature (aviflombaum, 2 days ago)
 > ```
-> This feature has been in progress for 2 days. Between yesterday and today, lots of progress was made, but it's still not working yet. In its current state, if we had to push the changes to the git repository, the latest version of our code would deploy to production and go live and our users would see a half-finished, currently broken new-feature--**That's no good!**
+> This feature has been in progress for 2 days. Between yesterday and today, lots of progress was made, but it's still not working yet. In its current state, if we had to push the changes to the git repository, the latest version of our code would deploy to production and go live, and our users would see a half-finished, currently broken new-feature--**That's no good!**
 >
-This isn't that big of a deal, _right?_
+Well, this isn't that big of a problem to solve, _right?_
 
 >One option would be to wait until the new feature is complete, push the changes to the repository, and have the changes go live to our users. 
 
 **This is where things get tricky...**
-> We notice a major bug that is currently breaking the application for all users. It's an easily fixable bug--one simple change to the code would make everything work again. Unfortunately, if you make and commit that fix, you wouldn't be able to deploy change. Even though that commit may fix the bug, the feature that you were previously working on would still be half-finished, and the users would see a broken new feature.
+> We notice a major bug that is currently breaking the application for all users. It's an easily fixable bug--one simple change to the code would make everything work again. Unfortunately, if you make and commit that fix, you wouldn't be able to deploy the change. Even though that commit may fix the bug, the feature that you were previously working on would still be half-finished, and the users would see a broken new feature.
 
-Now your commit messages me look like the below: 
+Now your commit messages may look like below: 
 ```
 r4212d1 Fix to application breaking bug (aviflombaum, just now)
 512bec5 Still broken, working on new-feature (aviflombaum, 2 hours ago)
 62d840 Almost done with new-feature (aviflombaum, 1 day ago)
 fbee832 Started new-feature (aviflombaum, 2 days ago)
 ```
-It wouldn't be wise to push all these commits. What if we were able to isolate our work the new feature into its own copy of our code, so that until it's done, we could deploy the commit that fixes the application? We can do exactly this using a feature in git called **branches**.
+It wouldn't be wise to push all of these commits together. What if we were able to isolate our work the new feature into its own copy of our code, so that until it's done, we could deploy the commit that fixes the application? We can do exactly this using a feature in git called **branches**.
 
 ## Making a branch with `git branch`
 
@@ -111,33 +111,31 @@ nothing to commit, working directory clean
 
 The git branch called `master` is our default branch. One of the responsible ways to use git, is to make sure that the `master` branch is always "clean" with working code. So, if we ever need to add a bug fix, we can do so and deploy a new version of the application immediately. If we keep broken or incomplete code out of master, we can always deploy master safely without negatively impacting the rest of the application.
 
-### Starting a new feature with `git branch new-feature`
+### Starting a new feature with `git branch new-feature-name`
 
-To keep master clean, when we want to start a new feature, we should do it in an isolated feature branch. Our timeline will look as follows:
+To keep master "clean", we start a new feature in an isolated feature branch. Our timeline will look as follows:
 
 ![Feature Branch](https://dl.dropboxusercontent.com/s/d61r0fxyriaf5oj/2015-11-02%20at%2011.52%20AM.png)
 
-After commit 2, we will branch out of master and create a new timeline for commits and events specifically related to the new feature. The master timeline remains unchanged and clean. Now that we've covered the idea of the new-feature branch, let's actually make it.
+After commit 2, we will branch out of master with `git branch new-feature-name` and create a new timeline for commits and events specifically related to this new feature. With this new branch, master remains unchanged and "clean". Now that we've covered the idea of the new feature branch, let's make it!
 
-To make a new branch simply type: `git branch <branch name>`. In the case of a branch relating to a new feature, we'd name the branch `new-feature` like so:
+To make a new branch, type: `git branch <branch name>`. In the case of a branch relating to a new feature, we'd name the branch `new-feature` like so:
 
 ```
 mission-critical-application $ git branch new-feature
 ```
-
 To see a list of our branches we can type: `git branch -a`
-
 ```
 mission-critical-application $ git branch -a
 * master
   new-feature
 ```
 
-The `*` in front of the branch `master` indicates that `master` is currently our working branch and git tells us that we also have a branch called `new-feature`. If we made a commit right now, that commit would still be applied to our `master` branch.
+The `*` in front of the branch `master` indicates that `master` is currently our working branch. Git also tells us that we have another branch called `new-feature`. If we made a commit right now, that commit would still be applied to our `master` branch.
 
 ## Switching branches with `git checkout`
 
-We need to checkout or move into our `new-feature` timeline or branch so that git knows that all commits made apply to only that unit of work, timeline, or branch. We can move between branches with `git checkout <branch name>`.
+We need to checkout, or move, into our `new-feature` timeline or **branch** so that git knows that all the commits made apply only to that unit of work, timeline, or branch. We can move between branches using `git checkout <existing branch name>`.
 
 ```
 mission-critical-application $ git status
@@ -150,9 +148,9 @@ On branch new-feature
 nothing to commit, working directory clean
 ```
 
-We started on `master` and then checked out our `new-feature` branch with `git checkout new-feature`, thereby moving into that timeline.
+We started on `master`, then checked out our `new-feature` branch with `git checkout new-feature`, and moved onto that timeline.
 
-Let's make a commit in this `new-feature` and get the feature started by making a new file, `new-feature-file` to represent the code for the new feature.
+Let's get the feature started by making a new file called `new-feature-file` to represent the code for this new feature, and commit that addition.
 
 ```
 mission-critical-application $ touch new-feature-file
@@ -163,22 +161,24 @@ mission-critical-application $ git commit -m "Started new feature"
  create mode 100644 new-feature-file
 ```
 
-You can see the commit we made was made in the context of the `new-feature` branch.
+You can see the from the commit message that it was made in the context of the `new-feature` branch.
 
-Right as we got started on that feature though, we get another bug report and have to move back into master to fix the bug and then deploy master. How do we move from `new-feature` branch back to `master`? What will our code look like when we move back to `master`, will we see the remnants of the `new-feature` branch and code represented by the `new-feature-file`?
+Let's say that in the middle of this new feature, we get another bug report, and have to move back into master to fix the bug and then deploy master. How do we move from our  `new-feature` branch back to `master`? 
 
 **Protip: You can create and checkout a new branch in one command using: `git checkout -b new-branch-name`. That will both create the branch `new-branch-name` and move into it by checking it out.**
 
 ### Moving back to `master` with `git checkout master`
 
-You can always move between branches with `git checkout`. Since we are currently on `new-feature`, we can move back to master with `git checkout master`.
+You can always move between branches with `git checkout <existing branch name>`. Since we are currently on `new-feature`, we can move back to master with `git checkout master`. 
+
+** **Make sure to check-in your changes from `new-feature` on new-feature before checking out. Otherwise your uncommitted files will travel with you to the next branch** **
 
 ```
 mission-critical-application $ git checkout master
 Switched to branch 'master'
 ```
 
-And we could move back to `new-feature` with `git checkout new-feature`
+We can move back to `new-feature` with `git checkout new-feature`
 
 ```
 mission-critical-application $ git checkout new-feature
@@ -191,6 +191,7 @@ And back again with:
 mission-critical-application $ git checkout master
 Switched to branch 'master'
 ```
+**Protip: You can also switch back and forth between your most recent 2 branches using: `git checkout -`.**
 
 ![Switching between branches](https://dl.dropboxusercontent.com/s/qzajqsd9f6njauc/2015-11-02%20at%2012.12%20PM.png)
 
@@ -238,7 +239,7 @@ mission-critical-application $ git commit -m "Finished feature"
  create mode 100644 new-feature
 ```
 
-Let's look at our timeline now.
+Let's look at our timeline now:
 
 ![Completed Feature Branch](https://dl.dropboxusercontent.com/s/xtoehu7tv5zim6v/2015-11-02%20at%2012.31%20PM.png)
 
@@ -334,11 +335,11 @@ Switched to a new branch 'remote-feature-branch'
 
 When we checkout a remote branch fetched, git will create a local branch to track that remote and switch to that branch. We can now do work, push it back up to GitHub, and another developer can fetch those changes down.
 
-`git fetch` is a pretty low-level git command we don't use that much because it always requires two steps, first `git fetch` and then `git merge` to actually integrate those changes into your working branch. Generally, if you are in `master` you want to immediately `fetch` and `merge` any changes to the remote master.
+`git fetch` is a pretty low-level git command that we don't use that much because it always requires two steps, first `git fetch` and then `git merge` to actually integrate those changes into your working branch. Generally, if you are in `master` you want to immediately `fetch` and `merge` any changes to the remote master.
 
 ### Updating and merging remote branches using `git pull`
 
-If you want to both fetch and merge, which is what you want to do 99% of the time, just type `git pull`. `git pull` is literally the combination of both `git fetch` and `git merge`.
+If you want to both fetch and merge, which is preferred the majority of the time, type `git pull`. `git pull` is the combination of both `git fetch` and `git merge`.
 
 When you `git pull` the following things will occur:
 
