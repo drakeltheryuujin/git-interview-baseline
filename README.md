@@ -13,28 +13,32 @@
 
 ## Overview
 
-A key to collaborating with git is to keep discrete and individual lines of work isolated from each other. Consider the following scenario.
+An important part of collaboring ih git is to keep discrete, individual lines of work separate from each other. "Commit early, commit often", or some variation of this phrase, is commonly used by developers. 
+**Why is that?**--The idea behind small, frequent commits is to allow developers to track their work in easy-to-define chunks. For instance, if you make various unlreated changes and commit all of the code at once (eg: you add several new files, change some stylesheets, install a couple new packages/gems, update some config files, and delete some views), you, let alone other developers, may not have any idea how much those changes impact the overall application, and would make tracking down and implementing fixes very difficult, in the occasion that something you did broke the app. With that being said, consider the following scenario:
 
-You start work on a big feature, making a few commits that don't entirely finish the feature. Your git log might look like:
+> You begin working on a big feature. You make a few "Work in Progress" commits that don't get the feature fully-functional. Your git log might look like:
+> ```
+> 512bec5 Still broken, working on new-feature (aviflombaum, 2 hours ago)
+> 62d840 Almost done with new-feature (aviflombaum, 1 day ago)
+> fbee832 Started new-feature (aviflombaum, 2 days ago)
+> ```
+> This feature has been in progress for 2 days. Between yesterday and today, lots of progress was made, but it's still not working yet. In its current state, if we had to push the changes to the git repository, the latest version of our code would deploy to production and go live and our users would see a half-finished, currently broken new-feature--**That's no good!**
+>
+This isn't that big of a deal, _right?_
 
-```
-512bec5 Still broken, working on new-feature (aviflombaum, 2 hours ago)
-62d840 Almost done with new-feature (aviflombaum, 1 day ago)
-fbee832 Started new-feature (aviflombaum, 2 days ago)
-```
+>One option would be to wait until the new feature is complete, push the changes to the repository, and have the changes go live to our users. 
 
-Two days ago we started working on our new-feature. Yesterday we were almost done. Today we made progress, but it's still broken. In our current state, if we had to push the repository live and deploy the latest version of our code to production, our users would see a half-finished, currently broken new-feature. That's no good.
+**This is where things get tricky...**
+> We notice a major bug that is currently breaking the application for all users. It's an easily fixable bug--one simple change to the code would make everything work again. Unfortunately, if you make and commit that fix, you wouldn't be able to deploy change. Even though that commit may fix the bug, the feature that you were previously working on would still be half-finished, and the users would see a broken new feature.
 
-But no big deal, right? We can just wait until we're done with new-feature to deploy our code and push the repository live to our users. Here's what happens though. We notice a big bug that is currently breaking the application for all users. The bug is an easy fix, one simple change and deploy of your code can make everything work again. Unfortunately, even if you made that commit, you can't currently deploy it because while that commit might fix the bug, you'd still be pushing your half-finished and broken new-feature.
-
+Now your commit messages me look like the below: 
 ```
 r4212d1 Fix to application breaking bug (aviflombaum, just now)
 512bec5 Still broken, working on new-feature (aviflombaum, 2 hours ago)
 62d840 Almost done with new-feature (aviflombaum, 1 day ago)
 fbee832 Started new-feature (aviflombaum, 2 days ago)
 ```
-
-See, we can't push all those commits. Wouldn't it have been great if we simply isolated our work on new-feature into its own copy of our code so that until it's done, we could have deployed the commit that fixes the application? We can do exactly this using a feature in git called branches.
+It wouldn't be wise to push all these commits. What if we were able to isolate our work the new feature into its own copy of our code, so that until it's done, we could deploy the commit that fixes the application? We can do exactly this using a feature in git called **branches**.
 
 ## Making a branch with `git branch`
 
