@@ -2,14 +2,17 @@
 
 ## Objectives
 
-1. Make a new branch for your repository with `git branch`.
-2. Checkout a branch with `git checkout`.
-3. Create and checkout a new branch with `git checkout -b`.
-4. Create commits within a branch.
-5. Merge branches with `git merge`.
-6. Update branches from remotes with `git fetch`.
-7. Merge updated remote branches with `git merge`.
-8. Update and merge remote branches with `git pull`.
+1. Overview
+2. Making a branch with `git branch`.
+    * Understanding the `master` branch.
+    * Starting a new feature with `git branch new-feature-name`.
+3. Switching branches with `git checkout`.
+    * Moving back to `master` with `git checkout master`
+4. Merging branches.
+    * Merging branches with `git merge`.
+    * Merging updated remote branches with `git fetch`.
+    * Updating and merging remote branches using `git pull`.
+5. Conclusion
 
 ## Overview
 
@@ -92,7 +95,7 @@ Right now, our git log could be visualized as a timeline composed of two commits
 
 ![First Two Commits](https://dl.dropboxusercontent.com/s/ikorf1qvvp4tay0/2015-11-02%20at%2011.15%20AM.png)
 
-### About `master` branch.
+### Underestanding the `master` branch.
 
 Notice that these commits are occurring in a linear sequence of events, almost like a timeline? We call this timeline a **branch** (sort of like a tree)! Whenever you are working on commits in git, you are adding them on a timeline of code called a branch. The branch you are on by default at the start of any repository, your main timeline, the main branch is called master.
 
@@ -132,7 +135,7 @@ mission-critical-application $ git branch -a
 
 The `*` in front of the branch `master` indicates that `master` is currently our working branch and git tells us that we also have a branch called `new-feature`. If we made a commit right now, that commit would still be applied to our `master` branch.
 
-### Switching branches with `git checkout`
+## Switching branches with `git checkout`
 
 We need to checkout or move into our `new-feature` timeline or branch so that git knows that all commits made apply to only that unit of work, timeline, or branch. We can move between branches with `git checkout <branch name>`.
 
@@ -166,7 +169,7 @@ Right as we got started on that feature though, we get another bug report and ha
 
 **Protip: You can create and checkout a new branch in one command using: `git checkout -b new-branch-name`. That will both create the branch `new-branch-name` and move into it by checking it out.**
 
-#### Moving back to `master` with `git checkout master`
+### Moving back to `master` with `git checkout master`
 
 You can always move between branches with `git checkout`. Since we are currently on `new-feature`, we can move back to master with `git checkout master`.
 
@@ -239,9 +242,12 @@ Let's look at our timeline now.
 
 ![Completed Feature Branch](https://dl.dropboxusercontent.com/s/xtoehu7tv5zim6v/2015-11-02%20at%2012.31%20PM.png)
 
+
+## Merging branches
+
 The final step of our `new-feature` work sprint is to figure out how to merge that timeline into the master timeline.
 
-## Merging branches with `git merge`
+### Merging branches with `git merge`
 
 Our goal is to bring the timeline of commits that occurred on the `new-feature` branch into the `master` so that at the end of the operation, our `master` timeline looks like:
 
@@ -269,9 +275,9 @@ Fast-forward
 
 Now the branches have been merged and if you `ls`, you'll see the `new-feature` file from the `new-feature` branch in your current working directory that is checked out to master.
 
-## Working with remote branches with `git fetch` and `git pull`
-
 Your local branches can attach to remote branches that live on the internet, generally on GitHub, that your team members might contribute to and you can download locally.
+
+### Merging updated remote branches with `git fetch`
 
 Whenever you want to update your local copy with all the branches that might have been added to the GitHub remote, you can type `git fetch`.
 
@@ -330,7 +336,7 @@ When we checkout a remote branch fetched, git will create a local branch to trac
 
 `git fetch` is a pretty low-level git command we don't use that much because it always requires two steps, first `git fetch` and then `git merge` to actually integrate those changes into your working branch. Generally, if you are in `master` you want to immediately `fetch` and `merge` any changes to the remote master.
 
-### Combining `git fetch` with `git merge` by using `git pull`
+### Updating and merging remote branches using `git pull`
 
 If you want to both fetch and merge, which is what you want to do 99% of the time, just type `git pull`. `git pull` is literally the combination of both `git fetch` and `git merge`.
 
